@@ -12,7 +12,7 @@ class AbstractRepository(abc.ABC):
         raise NotImplementedError
 
     @abc.abstractmethod
-    def get(self, sku: str) -> model.Product:
+    def get(self, sku: str | None = None) -> model.Product:
         raise NotImplementedError
 
 
@@ -24,8 +24,12 @@ class SqlAlchemyRepository(AbstractRepository):
     def add(self, product):
         self._session.add(product)
 
-    def get(self, sku):
-        return self._session.query(model.Product).filter_by(sku=sku).first()
+    def get(self, sku=None):
+        products = self._session.query(model.Product)
+        if(sku):
+            return products.filter_by(sku=sku).first()
+        return products.all()
+        # return self._session.query(model.Product).filter_by(sku=sku).first()
 
-    def get_order_lines(self, order_id):
-        return self._session.query(model.OrderLine).filter_by(order_id=order_id).all()
+    # def get_order_lines(self, order_id):
+    #     return self._session.query(model.OrderLine).filter_by(order_id=order_id).all()
