@@ -1,6 +1,6 @@
-from allocation.service_layer import unit_of_work
-from allocation.exceptions import InvalidSku
-from allocation.domain import model
+from products.service_layer import unit_of_work
+from products.exceptions import InvalidSku
+from products.domain import model
 
 
 # def allocate(

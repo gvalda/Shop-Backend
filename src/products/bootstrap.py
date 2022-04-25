@@ -1,9 +1,9 @@
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy import create_engine
 
-from allocation.service_layer import unit_of_work
-from allocation.adapters.orm import start_mappers
-from allocation import config
+from products.service_layer import unit_of_work
+from products.adapters.orm import start_mappers
+from products import config
 
 
 def bootstrap():

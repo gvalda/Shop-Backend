@@ -3,10 +3,10 @@ from functools import update_wrapper
 
 from flask import Flask, request, jsonify, current_app, make_response
 
-from allocation.service_layer import handlers
-from allocation.bootstrap import bootstrap
-from allocation.enums import StatusCodes
-from allocation import exceptions
+from products.service_layer import handlers
+from products.bootstrap import bootstrap
+from products.enums import StatusCodes
+from products import exceptions
 
 app = Flask(__name__)
 
@@ -90,20 +90,20 @@ uow = bootstrap()
 #         return 'NOT FOUND', StatusCodes.NOT_FOUND_404
 #     return jsonify(order_lines=results), StatusCodes.OK_200
 
-@app.route('/products', methods=['GET', ])
+@app.route('/products', methods=['GET'])
 @crossdomain(origin="*")
 def get_products():
-    # TODO Read cross-domain sites from env variables
+    # TODO Read cross-domain sites from config file
     # TODO Make one list for safe sites
     results = handlers.get_all_products(uow)
     if not results:
-        return 'NOT FOUND', StatusCodes.BAD_REQUEST_400
+        results = []
     return jsonify(products=results), StatusCodes.OK_200
 
 
 @app.route('/products', methods=['POST'])
 def add_product():
-    # TODO Check if request contains sku, name and quantity
+    # TODO Check if request contains sku, name and description
     handlers.add_product(
         request.json['sku'],
         request.json['name'],

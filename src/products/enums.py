@@ -1,6 +1,3 @@
-from http.client import BAD_REQUEST
-
-
 class StatusCodes:
     OK_200 = 200
     CREATED_201 = 201

@@ -3,7 +3,7 @@ import abc
 from re import A
 
 
-from allocation.adapters import repository
+from products.adapters import repository
 
 
 class AbstractUnitOfWork(abc.ABC):
